@@ -1,4 +1,5 @@
-#!/bin/sh                                                                                                                                                  exec scala -nc "$0" "$@"
+#!/bin/sh
+exec scala -nc "$0" "$@"
 !#
 
 import scala.io._

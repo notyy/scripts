@@ -3,6 +3,12 @@ exec scala -nc "$0" "$@"
 !#
 
 import scala.io._
+import java.io._
+
+def writeToFile(f: java.io.File)(data: List[String]) {
+  val p = new java.io.PrintWriter(f)
+  try { data.foreach(p.println) } finally { p.close() }
+}
 
 var url:String =""
 val MobilePattern = ".*<mobile:import url=\"(.*)\">.*".r
@@ -15,13 +21,13 @@ def replaceUrl(s: String): Option[String] = s match {
   case _ => Some(s)
 }
 
-val arg = args(0)
-println("processing " + arg)
-val source = if(args.length>0) Source.fromFile(arg).getLines.toList else List()
+val fileName = if(args.length>0) args(0) else Source.stdin.getLines.next
+val source =  Source.fromFile(fileName).getLines
+println("processing " + fileName)
 val target = source.foldLeft(List[String]()){(acc, s) => 
   val rs = replaceUrl(s)
   if(rs.isEmpty) acc
   else (rs.get::acc)
 }
 
-target.reverse.map(println)
+writeToFile(new File(fileName))(target.reverse)

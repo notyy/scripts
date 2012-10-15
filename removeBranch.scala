@@ -12,9 +12,9 @@ def writeToFile(f: java.io.File)(data: List[String]) {
 }
 
 def processChooseBlock(block: List[String]): List[String] = {
-  val rs = if(block(1).contains("<c:when test=\"${ mobileLevel eq 'high' }\">")) {
+  val rs = if(block(1).contains("mobileLevel eq 'high'")) {
     if(block.find(_.contains("<choose>")).isEmpty){
-      block.dropWhile(x => !(x.contains("<c:when test=\"${ mobileLevel eq 'high' }\">"))).
+      block.dropWhile(x => !(x.contains("mobileLevel eq 'high'"))).
 	takeWhile(x => !(x.contains("</c:when>")))
     }else {throw new Error("can't process recursive choose block")}
   }else block 

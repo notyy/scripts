@@ -21,13 +21,17 @@ def replaceUrl(s: String): Option[String] = s match {
   case _ => Some(s)
 }
 
-val fileName = if(args.length>0) args(0) else Source.stdin.getLines.next
-val source =  Source.fromFile(fileName).getLines
-println("processing " + fileName)
-val target = source.foldLeft(List[String]()){(acc, s) => 
-  val rs = replaceUrl(s)
-  if(rs.isEmpty) acc
-  else (rs.get::acc)
+def process(fileName: String){
+  val source =  Source.fromFile(fileName).getLines
+  println("processing " + fileName)
+  val target = source.foldLeft(List[String]()){(acc, s) =>
+    val rs = replaceUrl(s)
+    if(rs.isEmpty) acc
+    else (rs.get::acc)
+  }
+writeToFile(new File(fileName))(target.reverse)
 }
 
-writeToFile(new File(fileName))(target.reverse)
+println("got " + args.length + " arguments")
+args.foreach(process)
+

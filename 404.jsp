@@ -5,21 +5,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://localmatters.com/mvc" prefix="lm" %>
-
 <%@ taglib tagdir="/WEB-INF/tags" prefix="lmtags" %>
 <%@ taglib tagdir="/WEB-INF/tags/mobile" prefix="mobile" %>
-
 <c:import url="/WEB-INF/jsp/init.jsp" />
-
 <lm:list action="add" list="${ cssFiles }"><lm:url value="/rs/css/mobile/404.css" /></lm:list>
-
 <mobile:page_wrapper pageName="error">
     
-    <mobile:import url="/WEB-INF/jsp/mobile/header.jsp">
-        <c:import url="${ path }">
+        <c:import url="/WEB-INF/jsp/mobile/header.jsp">
             <c:param name="showNav" value="false" />
         </c:import>
-    </mobile:import>
         
         <c:choose>
             <c:when test="${ mobileLevel eq 'high' }">    
@@ -53,9 +47,5 @@
                 </table>
             </c:otherwise>
         </c:choose>
-
-    <mobile:import url="/WEB-INF/jsp/mobile/footer.jsp">
-        <c:import url="${ path }" />
-    </mobile:import>
-
+        <c:import url="/WEB-INF/jsp/mobile/footer.jsp" />
 </mobile:page_wrapper>

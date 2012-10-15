@@ -15,10 +15,10 @@ def processChooseBlock(block: List[String]): List[String] = {
   val rs = if(block(1).contains("mobileLevel eq 'high'")) {
     if(block.find(_.contains("<choose>")).isEmpty){
       block.dropWhile(x => !(x.contains("mobileLevel eq 'high'"))).
-	takeWhile(x => !(x.contains("</c:when>")))
+	takeWhile(x => !(x.contains("</c:when>"))).tail
     }else {throw new Error("can't process recursive choose block")}
   }else block 
-  rs.tail.reverse
+  rs.reverse
 }
 
 def process(fileName: String) = {
